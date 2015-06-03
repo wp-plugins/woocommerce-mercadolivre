@@ -30,6 +30,18 @@ Este plugin ainda possibilita a visualização, edição e resposta dos últimos
 
 Permita que sua loja virtual e sua conta de vendedor no MercadoLivre sejam um só agora mesmo!
 
+= Compatibilidade =
+
+Compatível com as versões 2.3.x do WooCommerce.
+
+= Instalação =
+
+Veja como instalar e configurar este plugin na aba [Installation](http://wordpress.org/extend/plugins/woocommerce-mercadolivre/installation/).
+
+= Dúvidas? =
+
+Confira se sua dúvida já foi respondida na seção [FAQ](http://wordpress.org/extend/plugins/woocommerce-mercadolivre/faq/), caso não encontre uma resposta por lá [crie um tópico](http://wordpress.org/support/plugin/woocommerce-mercadolivre) (apenas em inglês) solicitando ajuda.
+
 == Installation ==
 1. Upload the contents of `woocommerce-mercadolivre` to the `/wp-content/plugins/woocommerce-mercadolivre/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
