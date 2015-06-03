@@ -1,6 +1,6 @@
 === WooCommerce MercadoLivre ===
 Contributors: agenciamagma, Carlos Cardoso Dias
-Tags: MercadoLivre, MercadoPago, WooCommerce, Integration, Mercado Livre
+Tags: mercadolivre, mercadopago, woocommerce, integration, mercado livre, woocommerce mercadolivre, woocommerce mercado livre, integração, mercado, livre, mercadoenvios, mercado envios, feedback, comentários, ml
 Donate link: http://magmastore.com.br/
 Requires at least: 4.2.0
 Tested up to: 4.2.2
@@ -11,11 +11,24 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 WooCommerce MercadoLivre integrates your store in WooCommerce with your MercadoLivre account.
 
 == Description ==
-WooCommerce MercadoLivre allows you to post products simultaneously in your virtual store with WooCommerce in your MercadoLivre account enabling the integrated inventory management, automatic product update, among other features .
+
+### Integrates your store with MercadoLivre ###
+
+WooCommerce MercadoLivre allows you to post products simultaneously in your virtual store with WooCommerce in your MercadoLivre account enabling the integrated inventory management, automatic product update, among other features.
 
 This plugin also allows viewing, editing and response to the recent comments made on MercadoLivre through the administrative panel.
 
 Allow your shop and your account on MercadoLivre being one.
+
+### Descrição em Português: ###
+
+Integre sua loja com o MercadoLivre.
+
+WooCommerce MercadoLivre permite que você publique produtos simultaneamente na sua loja virtual com WooCommerce e na sua conta como vendedor do MercadoLivre permitindo que os produtos publicados através de sua loja virtual possuam um gerenciamento integrado de estoque, atualização automática do produto no MercadoLivre, dentre outras possibilidades.
+
+Este plugin ainda possibilita a visualização, edição e resposta dos últimos comentários feitos no MercadoLivre através de painel administrativo de sua loja.
+
+Permita que sua loja virtual e sua conta de vendedor no MercadoLivre sejam um só agora mesmo!
 
 == Installation ==
 1. Upload the contents of `woocommerce-mercadolivre` to the `/wp-content/plugins/woocommerce-mercadolivre/` directory
