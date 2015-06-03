@@ -46,10 +46,21 @@ Confira se sua dúvida já foi respondida na seção [FAQ](http://wordpress.org/
 1. Upload the contents of `woocommerce-mercadolivre` to the `/wp-content/plugins/woocommerce-mercadolivre/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
+### Instalação e Configuração em Português ###
+
+* Envie os arquivos do plugin para a pasta `wp-content/plugins` ou usando o instalador de plugins do WordPress.
+* Ative o plugin.
+
 == Frequently Asked Questions ==
 = Do I have to install WooCommerce to use this plugin? =
 
 Yes. The plugin was been tested under WooCommerce 2.3.10, so that might be enough.
+
+### FAQ em Português ###
+
+= Preciso instalar o WooCommerce para usar este plugin? =
+
+SIM! Este plugin foi testado utilizando o WooCommerce 2.3.10.
 
 == Screenshots ==
 1. This screenshot shows the administrative panel.
