@@ -45,11 +45,17 @@ Confira se sua dúvida já foi respondida na seção [FAQ](http://wordpress.org/
 == Installation ==
 1. Upload the contents of `woocommerce-mercadolivre` to the `/wp-content/plugins/woocommerce-mercadolivre/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Navigate to WooCommerce -> Settings -> Integration -> MercadoLivre, fill in your MercadoLivre APP ID and Secret Key, save changes and press the login button.
 
 ### Instalação e Configuração em Português ###
 
 * Envie os arquivos do plugin para a pasta `wp-content/plugins` ou usando o instalador de plugins do WordPress.
 * Ative o plugin.
+* Acesse WooCommerce -> Configurações -> Integração -> MercadoLivre, preencha com seus dados de APP ID e Secret Key, salve as alterações e clique em login.
+
+= Requerimentos =
+
+É necessário possuir uma conta no [MercadoLivre](https://www.mercadolivre.com/) e instalar a última versão do [WooCommerce](http://wordpress.org/extend/plugins/woocommerce/).
 
 == Frequently Asked Questions ==
 = Do I have to install WooCommerce to use this plugin? =
