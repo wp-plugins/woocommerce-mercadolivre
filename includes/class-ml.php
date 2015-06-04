@@ -12,7 +12,7 @@ class Meli {
      * @var $AUTH_URL is a url to redirect the user for login.
      */
     protected static $API_ROOT_URL = "https://api.mercadolibre.com";
-    protected static $AUTH_URL     = "http://auth.mercadolivre.com.br/authorization";
+    protected static $AUTH_URL     = "//auth.mercadolivre.com.br/authorization";
     protected static $OAUTH_URL    = "/oauth/token";
 
     /**
