@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: WooCommerce MercadoLivre
- * Plugin URI: http://www.woocommercemercadolivre.com.br/
+ * Plugin URI: http://agenciamagma.com.br
  * Description: WooCommerce integration with MercadoLivre.
- * Version: 0.0.2
+ * Version: 0.1.0
  * Author: agenciamagma, Carlos Cardoso Dias
- * Author URI: http://magmastore.com.br/
+ * Author URI: http://agenciamagma.com.br
  * Text Domain: woocommerce-mercadolivre
  * Domain Path: /languages/
- * License: GPLv2
+ * License: -
  *
  * @author Carlos Cardoso Dias
  */
@@ -52,6 +52,7 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 	 * Deactivation routine
 	 */
 	public static function deactivate() {
+		ML()->remove_plugin_data();
 		flush_rewrite_rules();
 	}
 	
@@ -60,6 +61,16 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 	 */
 	public function after_init() {
 		$this->options_slug = 'woocommerce_ag-magma-ml-integration_settings';
+
+		if ( $this->user_has_privileges() ) {
+			if ( isset( $_POST['woocommerce_ag-magma-ml-integration_ml_app_id'] ) ) {
+				ML()->ml_app_id = $_POST['woocommerce_ag-magma-ml-integration_ml_app_id'];
+			}
+
+			if ( isset( $_POST['woocommerce_ag-magma-ml-integration_ml_secret_key'] ) ) {
+				ML()->ml_secret_key = $_POST['woocommerce_ag-magma-ml-integration_ml_secret_key'];
+			}
+		}
 
 		require_once( 'includes/class-ml-communication.php' );
 		$this->ml_communication = ML_Communication::get_instance( 'ML_Communication' );
@@ -73,14 +84,11 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 			require_once( 'includes/class-ml-ajax.php' );
 			ML_Ajax::get_instance( 'ML_Ajax' );
 		} else if ( $this->user_has_privileges() ) {
+
 			// Check if the user just logged out
 			$this->check_logout();
 			// Verify if the user just logged in
 			$this->check_login();
-
-			// Include Notices
-			require_once( 'includes/class-ml-notices.php' );
-			ML_Notices::get_instance( 'ML_Notices' );
 
 			if ( $this->ml_is_logged() ) {
 				// Include Metaboxes
@@ -179,7 +187,7 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 		try {
 			$ml_product->update_stock();
 		} catch ( ML_Exception $e ) {
-			ML()->ml_error_message = sprintf( __( 'An error ocurred while trying to update the stock of the product %s on MercadoLivre: %s' , ML()->textdomain ) , $product->get_formatted_name() , $e->getMessage() );
+			$this->add_notice( sprintf( __( 'An error ocurred while trying to update the stock of the product %s on MercadoLivre: %s' , $this->textdomain ) , $product->get_formatted_name() , $e->getMessage() ) , 'error' );
 		}
 	}
 
@@ -192,6 +200,13 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 		}
 
 		return $this->ml_communication->is_logged();
+	}
+
+	/**
+	 * Check if the plugin isn't cofigured yet
+	 */
+	public function check_ml_isnt_logged() {
+		return ( ! $this->ml_is_logged() );
 	}
 
 	/**
@@ -208,8 +223,119 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 			if ( ! $this->ml_is_logged() ) {
 				wp_enqueue_script( 'refresh-on-close' , self::get_plugin_url( 'assets/js/ml.login.refresh.page.js' ) , array( 'thickbox' ) );
 				wp_localize_script( 'refresh-on-close' , 'obj' , array( 'url' => self::get_admin_settings_page_url() ) );
+			} else {
+				wp_enqueue_script( 'jquery-option-tree-script' , self::get_plugin_url( '/assets/js/jquery.option.tree.js' ) , array( 'jquery' ) );
+				include_once( WC()->plugin_path() . '/includes/admin/class-wc-admin-assets.php' );
+				wp_enqueue_script( 'wc-enhanced-select' );
+				wp_enqueue_script( 'jquery-ui-progressbar' );
+				wp_enqueue_script( 'jquery-ui-dialog' );
+			}
+			
+		}
+	}
+
+	/**
+	 * Include style for order and products listing
+	 *
+	 * @style( include_in: "admin" , must_add: "should_display_ml_contents" )
+	 */
+	public function add_listing_styles( $page ) {
+		$screen = get_current_screen();
+
+		if ( $screen->id == 'edit-product' ) {
+			wp_enqueue_style( 'ml-columns-style' , self::get_plugin_url( '/assets/css/ml.columns.css' ) , array() , '1.0.8' );
+		}
+	}
+
+	/**
+	 * Remove saved fields and options
+	 */
+	public function remove_plugin_data() {
+		foreach ( ML_Product::get_fields() as $field ) {
+			delete_post_meta_by_key( ML_Product::ML_PREFIX . $field );
+		}
+
+		delete_option( $this->options_slug );
+	}
+
+	/**
+	 * Print an admin notice if WooCommerce is missing
+	 *
+	 * @action( hook: "admin_notices" , must_add: "check_woocommerce_missing" )
+	 */
+	public function woocommerce_missing_notice() {
+		self::print_error_notice( __( 'Please make sure that WooCommerce is installed and active for this plugin to work properly' , $this->textdomain ) );
+	}
+
+	/**
+	 * Check if WooCommerce isn't active
+	 */
+	public function check_woocommerce_missing() {
+		return ( ! self::check_active_plugin( 'woocommerce/woocommerce.php' ) );
+	}
+
+	/**
+	 * Print an admin notice to advert the user to configure the plugin
+	 *
+	 * @action( hook: "admin_notices" , must_add: "check_ml_isnt_logged" )
+	 */
+	public function configure_plugin_notice() {
+		self::print_warning_notice( sprintf( __( 'The MercadoLivre is not already set in your store, click %shere%s to configure the plugin' , $this->textdomain ) , '<a href="' . self::get_admin_settings_page_url() . '">' , '</a>' ) );
+	}
+
+	/**
+	 * Print admin notices related with API operations
+	 *
+	 * @action( hook: "admin_notices" , must_add: "has_messages" )
+	 */
+	public function print_notices() {
+		foreach ( $this->ml_messages as $message ) {
+			switch ( $message['type'] ) {
+				case 'success' : self::print_success_notice( $message['message'] ); break;
+				case 'error'   : self::print_error_notice( $message['message'] ); break;
+				case 'warning' : self::print_warning_notice( $message['message'] ); break;				
+				default        : self::print_admin_notice( $message['message'] , $message['type'] ); break;
 			}
 		}
+
+		unset( $this->ml_messages );
+	}
+
+	/**
+	 * Add a notice to the array of notices
+	 */
+	public function add_notice( $message , $type = 'error' ) {
+		$messages = $this->ml_messages;
+
+		if ( empty( $messages ) || ! is_array( $messages ) ) {
+			$messages = array();
+		}
+
+		$messages[] = array( 'message' => $message , 'type' => $type );
+		$this->ml_messages = $messages;
+	}
+
+	/**
+	 * Check if the API has messages to display
+	 */
+	public function has_messages() {
+		return ( $this->ml_is_logged() && ( ! empty( $this->ml_messages ) ) );
+	}
+
+	/**
+	 * Display the log-out message
+	 *
+	 * @action( hook: "admin_notices" , must_add: "check_logout_notice" )
+	 */
+	public function logout_notice() {
+		self::print_success_notice( __( 'The MercadoLivre is no longer integrated with your store' , $this->textdomain ) );
+	}
+
+	/**
+	 * Check if the user logged out
+	 */
+	public function check_logout_notice() {
+		return ( isset( $_GET['ml-logout'] ) && ( $_GET['ml-logout'] == 1 ) );
 	}
 
 	/**
@@ -242,10 +368,7 @@ final class WooCommerce_MercadoLivre extends MGM_Main_Plugin {
 	private function check_logout() {
 		if ( isset( $_GET['ml-logout'] ) && $_GET['ml-logout'] == 'logout' ) {
 			// Logout routines
-			ML_Communication::reset_token_data();
-			unset( $this->ml_nickname );
-			unset( $this->ml_sites );
-			unset( $this->ml_official_stores );
+			$this->remove_plugin_data();
 
 			wp_safe_redirect( add_query_arg( array( 'ml-logout' => '1' ) , wp_get_referer() ) );
 		}

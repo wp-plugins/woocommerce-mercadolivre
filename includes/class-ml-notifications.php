@@ -49,16 +49,21 @@ final class ML_Notifications extends MGM_Singleton {
 	 * Handler for ML payments
 	 */
 	public function payments_handler( $resource ) {
-		
 	}
 
 	/**
 	 * Handler for ML items
 	 */
 	public function items_handler( $resource ) {
-		$ml_product = new ML_Product( $resource->id );
+		$ml_product = null;
 
-		if ( $ml_product->is_published() ) {
+		try {
+			$ml_product = new ML_Product( $resource->id );
+		} catch (ML_Exception $e) {
+			$ml_product = null;
+		}
+
+		if ( isset( $ml_product ) && $ml_product->is_published() ) {
 			$ml_product->save_data( $resource );
 			$ml_product->get_wc_product()->set_stock( $resource->available_quantity );
 		}
@@ -68,14 +73,12 @@ final class ML_Notifications extends MGM_Singleton {
 	 * Handler for ML questions
 	 */
 	public function questions_handler( $resource ) {
-
 	}
 
 	/**
 	 * Handler for ML orders
 	 */
 	public function orders_handler( $resource ) {
-
 	}
 }
 

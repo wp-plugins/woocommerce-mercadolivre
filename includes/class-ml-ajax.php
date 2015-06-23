@@ -199,9 +199,9 @@ final class ML_Ajax extends MGM_Plugin {
 		try {
 			$ml_product = new ML_Product( intval( $_GET['post_id'] ) );
 			$ml_product->relist();
-			ML()->ml_success_message = __( 'The product was successfully relisted on MercadoLivre' , ML()->textdomain );
+			ML()->add_notice( __( 'The product was successfully relisted on MercadoLivre' , ML()->textdomain ) , 'success' );
 		} catch ( ML_Exception $e ) {
-			ML()->ml_error_message = sprintf( '%s: %s' , __( 'The product could not be relisted on MercadoLivre' , ML()->textdomain ) , $e->getMessage() );
+			ML()->add_notice( sprintf( '%s: %s' , __( 'The product could not be relisted on MercadoLivre' , ML()->textdomain ) , $e->getMessage() ) , 'error' );
 		}
 		
 		wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'edit.php?post_type=product' ) );
@@ -223,7 +223,7 @@ final class ML_Ajax extends MGM_Plugin {
 			$ml_product = new ML_Product( intval( $_GET['post_id'] ) );
 			$ml_product->update_status( $_GET['status'] );
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = sprintf( '%s: %s' , __( 'Error while trying to update product status on MercadoLivre' , ML()->textdomain ) , $e->getMessage() );
+			ML()->add_notice( sprintf( '%s: %s' , __( 'Error while trying to update product status on MercadoLivre' , ML()->textdomain ) , $e->getMessage() ) , 'error' );
 		}
 		
 		wp_safe_redirect( wp_get_referer() ? wp_get_referer() : admin_url( 'edit.php?post_type=product' ) );

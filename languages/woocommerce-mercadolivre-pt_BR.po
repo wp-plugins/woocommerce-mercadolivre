@@ -1,0 +1,802 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce MercadoLivre\n"
+"POT-Creation-Date: 2015-06-19 14:06-0300\n"
+"PO-Revision-Date: 2015-06-19 14:09-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-ml-ajax.php:196
+msgid "Empty product field."
+msgstr "Campo produto vazio."
+
+#: includes/class-ml-ajax.php:200
+msgid "Empty ML Category field."
+msgstr "Campo categoria vazio."
+
+#: includes/class-ml-ajax.php:204
+msgid "Empty ML Listing Type field."
+msgstr "Campo anúncio vazio."
+
+#: includes/class-ml-ajax.php:210
+msgid "You can not export a variable item yet"
+msgstr "Você não pode exportar um item variável ainda"
+
+#: includes/class-ml-ajax.php:214
+msgid "Item already posted at MercadoLivre"
+msgstr "Produto já postado no MercadoLivre"
+
+#: includes/class-ml-ajax.php:225
+msgid "Product successfully exported"
+msgstr "Produto exportado com sucesso"
+
+#: includes/class-ml-ajax.php:272
+msgid "The product was successfully relisted on MercadoLivre"
+msgstr "O produto foi relistado com sucesso no MercadoLivre"
+
+#: includes/class-ml-ajax.php:274
+msgid "The product could not be relisted on MercadoLivre"
+msgstr "O produto não pôde ser relistado no MercadoLivre"
+
+#: includes/class-ml-ajax.php:296
+msgid "Error while trying to update product status on MercadoLivre"
+msgstr "Erro ao tentar atualizar o status do produto no MercadoLivre"
+
+#: includes/class-ml-communication.php:33
+msgid "Not Specified"
+msgstr "Não especificado"
+
+#: includes/class-ml-communication.php:34
+msgid "Custom"
+msgstr "Personalizado"
+
+#: includes/class-ml-communication.php:35
+msgid "MercadoEnvios mode 1"
+msgstr "MercadoEnvios 1"
+
+#: includes/class-ml-communication.php:36
+msgid "MercadoEnvios mode 2"
+msgstr "MercadoEnvios 2"
+
+#: includes/class-ml-communication.php:197
+#, php-format
+msgid "Image %s succesfully posted"
+msgstr "Imagem %s enviada com sucesso"
+
+#: includes/class-ml-communication.php:199
+#, php-format
+msgid ""
+"An error ocurred while trying to upload the picture %s to MercadoLivre: %s"
+msgstr "Ocorreu um erro ao tentar carregar a imagem %s para o MercadoLivre: %s"
+
+#: includes/class-ml-communication.php:215
+#: includes/class-ml-communication.php:230
+#: includes/class-ml-communication.php:251
+#: includes/class-ml-communication.php:267
+#: includes/class-ml-communication.php:289
+#: includes/class-ml-communication.php:312
+msgid ""
+"An error ocurred while trying to communicate with MercadoLivre. Try to "
+"reload the page."
+msgstr ""
+"Ocorreu um erro ao tentar se comunicar com MercadoLivre. Tente recarregar a "
+"página."
+
+#: includes/class-ml-communication.php:359
+msgid "Empty response from ML"
+msgstr "Resposta vazia de MercadoLivre"
+
+#: includes/class-ml-exception.php:46
+msgid "Invalid start time."
+msgstr "Hora de início inválida."
+
+#: includes/class-ml-exception.php:47
+msgid "Invalid category."
+msgstr "Categoria inválida."
+
+#: includes/class-ml-exception.php:48
+msgid "Invalid buying mode."
+msgstr "Modo de compra inválido."
+
+#: includes/class-ml-exception.php:49
+msgid "Invalid item quantity."
+msgstr "Quantidade do produto inválida."
+
+#: includes/class-ml-exception.php:50
+msgid "Invalid item attributes."
+msgstr "Atributos do produto inválidos."
+
+#: includes/class-ml-exception.php:51
+msgid "Invalid attribute combinations."
+msgstr "Combinações de atributo inválidas."
+
+#: includes/class-ml-exception.php:52
+msgid "Missing required attributes."
+msgstr "Faltando atributos obrigatórios."
+
+#: includes/class-ml-exception.php:53
+msgid "Invalid listing type."
+msgstr "Anúncio inválido."
+
+#: includes/class-ml-exception.php:54
+msgid "Pictures is required."
+msgstr "Fotos são obrigatórias."
+
+#: includes/class-ml-exception.php:55
+msgid "Invalid site."
+msgstr "Site de inválido."
+
+#: includes/class-ml-exception.php:56
+msgid "Invalid shipping mode."
+msgstr "Modo de envio inválido."
+
+#: includes/class-ml-exception.php:57
+msgid ""
+"The number of characters in description must be less then 50000 characters."
+msgstr ""
+"O número de caracteres na descrição deve ser menor que 50000 caracteres."
+
+#: includes/class-ml-exception.php:58
+msgid "Number of images exceeded."
+msgstr "Número de fotos excedido."
+
+#: includes/class-ml-exception.php:59
+msgid "Every variation must have between 1 and 6 pictures."
+msgstr "Cada variação deve ter entre 1 e 6 fotos."
+
+#: includes/class-ml-exception.php:60
+msgid "Invalid value length for an attribute."
+msgstr "Comprimento do valor para um atributo inválido."
+
+#: includes/class-ml-exception.php:61
+msgid "Title is not modifiable."
+msgstr "Não é possível alterar o título."
+
+#: includes/class-ml-exception.php:62
+msgid "Condition is not modifiable."
+msgstr "Não é possível alterar a condição."
+
+#: includes/class-ml-exception.php:63
+msgid "Buying Mode is not modifiable."
+msgstr "Não é possível alterar o modo de compra."
+
+#: includes/class-ml-exception.php:64
+msgid "Warranty is not modifiable."
+msgstr "Não é possível alterar a garantia."
+
+#: includes/class-ml-exception.php:65
+msgid "Invalid item body."
+msgstr "Corpo do produto inválido."
+
+#: includes/class-ml-exception.php:66
+msgid "Item in status closed is not possible to change to status closed."
+msgstr ""
+"Produtos no estado encerrado não podem ser alterarados para o estado "
+"encerrado."
+
+#: includes/class-ml-exception.php:67
+msgid ""
+"Variation attribute is duplicated. Allowed unique atrributes combinations."
+msgstr ""
+"Atributo da variação está duplicado. Permitido apenas combinações de "
+"atributo únicas."
+
+#: includes/class-ml-exception.php:68
+msgid "There is no file in request."
+msgstr "Não há arquivo na requisição."
+
+#: includes/class-ml-integration.php:22 includes/class-ml-metaboxes.php:160
+#: includes/views/html-login-fail-page.php:17
+#: includes/views/html-login-success-page.php:17
+msgid "MercadoLivre"
+msgstr "MercadoLivre"
+
+#: includes/class-ml-integration.php:23
+msgid "Integration with the MercadoLivre API"
+msgstr "Integração com a API MercadoLivre"
+
+#: includes/class-ml-integration.php:43
+msgid "Logout"
+msgstr "Sair"
+
+#: includes/class-ml-integration.php:46
+msgid "Click to log out the current user"
+msgstr "Clique para desvincular o usuário atual"
+
+#: includes/class-ml-integration.php:49
+msgid "General Settings"
+msgstr "Configurações Gerais"
+
+#: includes/class-ml-integration.php:51
+msgid "Settings that affect the entire plugin behavior"
+msgstr "Configurações que afetam todo o comportamento do plugin"
+
+#: includes/class-ml-integration.php:54
+#: includes/views/html-me2-shipment.php:34
+msgid "Country"
+msgstr "País"
+
+#: includes/class-ml-integration.php:56
+msgid "Country where you want to act on MercadoLivre"
+msgstr "País onde pretende atuar no MercadoLivre"
+
+#: includes/class-ml-integration.php:61
+msgid "Export Automatically"
+msgstr "Exportação Automática"
+
+#: includes/class-ml-integration.php:63
+msgid ""
+"Determines whether to create a new product in the store he also will be "
+"created on MercadoLivre"
+msgstr ""
+"Determina se ao criar um novo produto na loja, ele também será criado no "
+"MercadoLivre"
+
+#: includes/class-ml-integration.php:67
+msgid "Update Automatically"
+msgstr "Atualização Automática"
+
+#: includes/class-ml-integration.php:69
+msgid ""
+"Determines whether to change a product in the store he also will be changed "
+"on MercadoLivre"
+msgstr ""
+"Determina se ao alterar um produto na loja, ele também será alterado no "
+"MercadoLivre"
+
+#: includes/class-ml-integration.php:73
+msgid "Actions"
+msgstr "Ações"
+
+#: includes/class-ml-integration.php:75
+msgid "Bulk actions"
+msgstr "Ações em massa"
+
+#: includes/class-ml-integration.php:78 includes/class-ml-integration.php:82
+msgid "Export Products"
+msgstr "Exportar Produtos"
+
+#: includes/class-ml-integration.php:83
+msgid "Click to post all store products on MercadoLivre"
+msgstr "Clique para postar todos os produtos da loja no MercadoLivre"
+
+#: includes/class-ml-integration.php:87
+#, php-format
+msgid ""
+" Create your application %shere%s. Your 'Redirect URI' is %s and "
+"'Notifications Callback URL' is %s"
+msgstr ""
+"Crie seu aplicativo %saqui%s. Sua 'Redirect URI' é %s e 'Notifications "
+"Callback URL' é %s"
+
+#: includes/class-ml-integration.php:90
+msgid "APP ID"
+msgstr "APP ID"
+
+#: includes/class-ml-integration.php:92
+msgid "Application ID on MercadoLivre."
+msgstr "ID de aplicativo no MercadoLivre."
+
+#: includes/class-ml-integration.php:96
+msgid "Secret Key"
+msgstr "Chave Secreta"
+
+#: includes/class-ml-integration.php:98
+msgid "Application secret key on MercadoLivre."
+msgstr "Chave secreta de aplicativo no MercadoLivre."
+
+#: includes/class-ml-integration.php:106
+msgid "Login"
+msgstr "Login"
+
+#: includes/class-ml-integration.php:110
+msgid "MercadoLivre Login"
+msgstr "Login MercadoLivre"
+
+#: includes/class-ml-integration.php:111
+msgid "Log in to perform operations"
+msgstr "Efetue o login para executar as operações"
+
+#: includes/class-ml-metaboxes.php:24
+msgid "MercadoLivre - Last Comments"
+msgstr "MercadoLivre - Últimos Comentários"
+
+#: includes/class-ml-metaboxes.php:66
+msgid "MercadoLivre Feedback"
+msgstr "MercadoLivre - Qualificação"
+
+#: includes/class-ml-metaboxes.php:106
+msgid "Aswer this question"
+msgstr "Responda esta pergunta"
+
+#: includes/class-ml-metaboxes.php:107
+msgid "Send"
+msgstr "Enviar"
+
+#: includes/class-ml-metaboxes.php:108
+msgid "Reply"
+msgstr "Responder"
+
+#: includes/class-ml-metaboxes.php:109
+#: includes/views/html-product-column-content.php:17
+#: includes/views/html-variation-line.php:58
+msgid "Delete"
+msgstr "Excluir"
+
+#: includes/class-ml-metaboxes.php:145
+#: includes/views/html-export-fields.php:48
+#: includes/views/html-product-tab.php:34
+msgid "Category"
+msgstr "Categoria"
+
+#: includes/class-ml-metaboxes.php:146
+#: includes/views/html-export-fields.php:48
+msgid "Subcategory"
+msgstr "Subcategoria"
+
+#: includes/class-ml-metaboxes.php:189
+#: includes/views/html-order-column-content.php:18
+#: includes/views/html-product-column-content.php:29
+msgid "View at ML"
+msgstr "Visualizar no MercadoLivre"
+
+#: includes/class-ml-metaboxes.php:319
+msgid "The product has been updated successfully on MercadoLivre"
+msgstr "O produto foi atualizado com sucesso no MercadoLivre"
+
+#: includes/class-ml-metaboxes.php:321
+msgid "The product could not be updated on MercadoLivre"
+msgstr "O produto não pôde ser atualizado no MercadoLivre"
+
+#: includes/class-ml-metaboxes.php:329
+msgid "The product was successfully published on MercadoLivre"
+msgstr "O produto foi publicado com sucesso no MercadoLivre"
+
+#: includes/class-ml-metaboxes.php:331
+msgid "The product could not be posted on MercadoLivre"
+msgstr "O produto não pôde ser publicado no MercadoLivre"
+
+#: includes/class-ml-metaboxes.php:396
+#, php-format
+msgid "Error updating shipping: %s"
+msgstr "Erro ao atualizar o envio: %s"
+
+#: includes/class-ml-metaboxes.php:432
+#, php-format
+msgid "Error sending feedback: %s"
+msgstr "Erro ao enviar a qualificação: %s"
+
+#: includes/class-ml-order.php:103
+msgid "Seller out of stock"
+msgstr "Vendedor sem estoque"
+
+#: includes/class-ml-order.php:104
+msgid "Seller did not try to contact buyer"
+msgstr "Vendedor não tentou entrar em contato com comprador"
+
+#: includes/class-ml-order.php:105
+msgid "Buyer not enough money"
+msgstr "Comprador sem dinheiro suficiente"
+
+#: includes/class-ml-order.php:106
+msgid "Buyer regrets"
+msgstr "Comprador mudou de ideia"
+
+#: includes/class-ml-order.php:111
+msgid "They did not answer"
+msgstr "Não houve resposta"
+
+#: includes/class-ml-order.php:112
+msgid "Seller regrets"
+msgstr "Vendedor mudou de ideia"
+
+#: includes/class-ml-order.php:113
+msgid "They not honoring policies"
+msgstr "Não honraram as políticas"
+
+#: includes/class-ml-order.php:114
+msgid "Other my responsability"
+msgstr "Outro de minha responsabilidade"
+
+#: includes/class-ml-order.php:115
+msgid "Other their responsability"
+msgstr "Outro de responsabilidade deles"
+
+#: includes/class-ml-order.php:148
+msgid "Error loading order"
+msgstr "Erro carregando pedido"
+
+#: includes/class-ml-order.php:260
+msgid "Undetermined"
+msgstr "Indeterminado"
+
+#: includes/class-ml-order.php:374
+msgid "I could not answer "
+msgstr "Não pude responder"
+
+#: includes/class-ml-order.php:375
+msgid "Description did not match article"
+msgstr "A descrição do artigo não corresponde"
+
+#: includes/class-ml-order.php:379 includes/views/html-feedback.php:147
+msgid "Negative"
+msgstr "Negativo"
+
+#: includes/class-ml-order.php:380 includes/views/html-feedback.php:145
+msgid "Neutral"
+msgstr "Neutro"
+
+#: includes/class-ml-order.php:381 includes/views/html-feedback.php:143
+msgid "Positive"
+msgstr "Positivo"
+
+#: includes/class-ml-order.php:385
+msgid "This sale was not fulfilled!"
+msgstr "Esta venda não foi concluída!"
+
+#: includes/class-ml-order.php:386
+msgid "This sale was fulfilled!"
+msgstr "Esta venda foi concluída!"
+
+#: includes/class-ml-product.php:142
+msgid "Error loading product"
+msgstr "Erro carregando produto"
+
+#: includes/class-ml-product.php:235
+msgid "This product is already posted at ML"
+msgstr "Este produto já foi publicado no MercadoLivre"
+
+#: includes/class-ml-product.php:319
+msgid "Invalid listing type"
+msgstr "Anúncio inválido"
+
+#: includes/class-ml-product.php:343
+msgid "Invalid status"
+msgstr "Estado inválido"
+
+#: includes/class-ml-product.php:393
+msgid "Only items with a closed status admit relisting"
+msgstr "Somente produtos no estado encerrado podem ser relistados"
+
+#: includes/views/html-custom-shipment.php:20
+msgid "Shipment Details"
+msgstr "Detalhes do Envio"
+
+#: includes/views/html-custom-shipment.php:23
+msgid "Description"
+msgstr "Descrição"
+
+#: includes/views/html-custom-shipment.php:24
+msgid "Cost"
+msgstr "Custo"
+
+#: includes/views/html-custom-shipment.php:43
+#: includes/views/html-me2-shipment.php:45
+msgid "Local pick up"
+msgstr "Retirada no local"
+
+#: includes/views/html-custom-shipment.php:44
+#: includes/views/html-me2-shipment.php:46
+msgid "Check if this product can be taken on site"
+msgstr "Marque se este produto pode ser retirado no local"
+
+#: includes/views/html-custom-shipment.php:53
+#: includes/views/html-me2-shipment.php:54
+msgid "Free Shipping"
+msgstr "Frete Grátis"
+
+#: includes/views/html-custom-shipment.php:54
+#: includes/views/html-me2-shipment.php:55
+msgid "Check if this product can be delivered for free"
+msgstr "Marque se este produto poderá ser entregue gratuitamente"
+
+#: includes/views/html-export-fields.php:19
+msgid "Remove"
+msgstr "Remover"
+
+#: includes/views/html-export-fields.php:22
+msgid "Products"
+msgstr "Produtos"
+
+#: includes/views/html-export-fields.php:23
+msgid "Search for a product&hellip;"
+msgstr "Buscar por um produto&hellip;"
+
+#: includes/views/html-export-fields.php:26
+msgid "ML Category"
+msgstr "Categoria do MercadoLivre"
+
+#: includes/views/html-export-fields.php:31
+#: includes/views/html-product-tab.php:68
+msgid "Listing Type"
+msgstr "Anúncio"
+
+#: includes/views/html-export-page.php:74
+msgid "Export products"
+msgstr "Exportar produtos"
+
+#: includes/views/html-export-page.php:81
+msgid "Add"
+msgstr "Adicionar"
+
+#: includes/views/html-export-page.php:82
+msgid "Export"
+msgstr "Exportar"
+
+#: includes/views/html-export-page.php:87
+msgid "Exporting products..."
+msgstr "Exportando produtos..."
+
+#: includes/views/html-feedback.php:134
+msgid "The purchase was completed?"
+msgstr "A compra foi concluída?"
+
+#: includes/views/html-feedback.php:136 includes/views/html-feedback.php:165
+msgid "Yes"
+msgstr "Sim"
+
+#: includes/views/html-feedback.php:138 includes/views/html-feedback.php:167
+msgid "No"
+msgstr "Não"
+
+#: includes/views/html-feedback.php:141
+msgid "How do you qualify this buyer?"
+msgstr "Como você qualificar este comprador?"
+
+#: includes/views/html-feedback.php:152
+msgid "Restock item?"
+msgstr "Restaurar estoque?"
+
+#: includes/views/html-feedback.php:155
+msgid "Why?"
+msgstr "Por que?"
+
+#: includes/views/html-feedback.php:163
+msgid "You've returned the money?"
+msgstr "Você devolveu o dinheiro?"
+
+#: includes/views/html-feedback.php:171
+msgid "Tell us more about this sale"
+msgstr "Conte-nos mais sobre essa venda"
+
+#: includes/views/html-feedback.php:177
+msgid "Buyer"
+msgstr "Comprador"
+
+#: includes/views/html-feedback.php:178
+msgid "Seller"
+msgstr "Vendedor"
+
+#: includes/views/html-login-fail-page.php:70
+msgid "Error"
+msgstr "Erro"
+
+#: includes/views/html-login-fail-page.php:76
+#: includes/views/html-login-success-page.php:76
+#, php-format
+msgid ""
+"Click %shere%s to see the premium version of the plugin WooCommerce "
+"MercadoLivre."
+msgstr ""
+"Clique %saqui%s para ver a versão premium do plugin WooCommerce MercadoLivre."
+
+#: includes/views/html-login-success-page.php:70
+msgid "Successfully logged!"
+msgstr "Você está logado!"
+
+#: includes/views/html-me2-shipment.php:29
+msgid "Express"
+msgstr "Rápido"
+
+#: includes/views/html-me2-shipment.php:30
+msgid "Standard"
+msgstr "Normal"
+
+#: includes/views/html-me2-shipment.php:35
+msgid "Exclude Regions"
+msgstr "Excluir as regiões"
+
+#: includes/views/html-me2-shipment.php:62
+msgid "Free Shipping for"
+msgstr "Frete grátis para"
+
+#: includes/views/html-me2-shipment.php:75
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: includes/views/html-product-column-content.php:21
+msgid "Relist"
+msgstr "Relistar"
+
+#: includes/views/html-product-column-content.php:23
+msgid "Pause"
+msgstr "Pausar"
+
+#: includes/views/html-product-column-content.php:25
+msgid "Activate"
+msgstr "Ativar"
+
+#: includes/views/html-product-tab.php:25
+msgid "Update at ML"
+msgstr "Atualizar no MercadoLivre"
+
+#: includes/views/html-product-tab.php:25
+msgid "Post at ML"
+msgstr "Publicar no MercadoLivre"
+
+#: includes/views/html-product-tab.php:26
+msgid "Check if this product should be published at ML"
+msgstr "Marque se este produto deve ser publicado no MercadoLivre"
+
+#: includes/views/html-product-tab.php:57
+msgid "Official Store"
+msgstr "Loja Oficial"
+
+#: includes/views/html-product-tab.php:58
+msgid "Determines which official store the product will be posted"
+msgstr "Determina em qual loja oficial o produto será publicado"
+
+#: includes/views/html-product-tab.php:69
+msgid "Determines how your product will be listed on MercadoLivre"
+msgstr "Determina como seu produto será anunciado no MercadoLivre"
+
+#: includes/views/html-product-tab.php:81
+msgid "Video ID or URL"
+msgstr "Vídeo (ID ou URL)"
+
+#: includes/views/html-product-tab.php:82
+msgid "Use the URL or the ID of the video on youtube"
+msgstr "Use o ID ou a URL do vídeo no youtube"
+
+#: includes/views/html-product-tab.php:90
+msgid "Warranty"
+msgstr "Garantia"
+
+#: includes/views/html-product-tab.php:91
+msgid "Describe the product warranty for buyers on MercadoLivre"
+msgstr "Descreva a garantia do produto para compradores no MercadoLivre"
+
+#: includes/views/html-product-tab.php:102
+msgid "Shipping"
+msgstr "Envio"
+
+#: includes/views/html-product-tab.php:103
+msgid "Determine how your product will be delivered for buyers on MercadoLivre"
+msgstr ""
+"Determina como seu produto será entregue para os compradores no MercadoLivre"
+
+#: includes/views/html-product-tab.php:137
+msgid "Title"
+msgstr "Título"
+
+#: includes/views/html-product-tab.php:138
+msgid "Product title on MercadoLivre"
+msgstr "Título do produto no MercadoLivre"
+
+#: includes/views/html-product-tab.php:148
+#: includes/views/html-variations.php:29
+msgid "Price"
+msgstr "Preço"
+
+#: includes/views/html-product-tab.php:150
+msgid "Leave blank to use the same value of the site"
+msgstr "Deixe em branco para usar o mesmo valor da loja"
+
+#: includes/views/html-shipping-order.php:19
+msgid "Pending"
+msgstr "Pendente"
+
+#: includes/views/html-shipping-order.php:20
+msgid "Ready to ship"
+msgstr "Pronto para envio"
+
+#: includes/views/html-shipping-order.php:21
+msgid "Shipped"
+msgstr "Enviado"
+
+#: includes/views/html-shipping-order.php:22
+msgid "Delivered"
+msgstr "Entregue"
+
+#: includes/views/html-shipping-order.php:23
+msgid "Not delivered"
+msgstr "Não entregue"
+
+#: includes/views/html-shipping-order.php:24
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#: includes/views/html-shipping-order.php:38
+msgid "MercadoLivre Shipping"
+msgstr "MercadoLivre Envio"
+
+#: includes/views/html-shipping-order.php:40
+msgid "Shipping Status:"
+msgstr "Estado do Envio:"
+
+#: includes/views/html-shipping-order.php:49
+msgid "Shipping Service:"
+msgstr "Serviço de Envio:"
+
+#: includes/views/html-shipping-order.php:54
+msgid "Another"
+msgstr "Outro"
+
+#: includes/views/html-shipping-order.php:60
+#: includes/views/html-shipping-order.php:65
+msgid "Tracking Number:"
+msgstr "Número de Rastreio:"
+
+#: includes/views/html-shipping-order.php:71
+msgid "Get Label"
+msgstr "Obter Rótulo"
+
+#: includes/views/html-shipping-order.php:74
+msgid "Download Zip"
+msgstr "Baixar .zip"
+
+#: includes/views/html-variations.php:20
+msgid "Variations"
+msgstr "Variações"
+
+#: includes/views/html-variations.php:28
+msgid "Child Product*"
+msgstr "ID da Variação*"
+
+#: includes/views/html-variations.php:53
+msgid "Add variation"
+msgstr "Adicionar variação"
+
+#: includes/views/html-variations.php:57 includes/views/html-variations.php:84
+msgid "Not Required"
+msgstr "Não Obrigatório"
+
+#: woocommerce-mercadolivre.php:142
+msgid "ML Actions"
+msgstr "Ações do MercadoLivre"
+
+#: woocommerce-mercadolivre.php:165
+msgid "ML Sales"
+msgstr "Vendas do MercadoLivre"
+
+#: woocommerce-mercadolivre.php:219
+#, php-format
+msgid ""
+"An error ocurred while trying to update the stock of the product %s on "
+"MercadoLivre: %s"
+msgstr ""
+"Ocorreu um erro ao tentar atualizar o estoque do produto %s no MercadoLivre: "
+"%s"
+
+#: woocommerce-mercadolivre.php:304
+msgid ""
+"Please make sure that WooCommerce is installed and active for this plugin to "
+"work properly"
+msgstr ""
+"Por favor, certifique-se de que o WooCommerce está instalado e ativo para "
+"que este plugin funcione corretamente"
+
+#: woocommerce-mercadolivre.php:320
+#, php-format
+msgid ""
+"The MercadoLivre is not already set in your store, click %shere%s to "
+"configure the plugin"
+msgstr ""
+"O MercadoLivre ainda não está funcionando na sua loja, clique %saqui%s para "
+"configurar o plugin"
+
+#: woocommerce-mercadolivre.php:368
+msgid "The MercadoLivre is no longer integrated with your store"
+msgstr "O MercadoLivre não está mais integrado com sua loja"

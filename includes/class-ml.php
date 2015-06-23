@@ -1,4 +1,12 @@
 <?php
+/**
+ * MercadoLivre
+ */
+
+/**
+ * Anti cheating code
+ */
+defined( 'ABSPATH' ) or die( 'A Ag&ecirc;ncia Magma n&atilde;o deixa voc&ecirc; trapacear ;)' );
 
 class Meli {
 
@@ -229,6 +237,26 @@ class Meli {
         
         $exec = $this->execute($path, $opts, $params);
 
+        return $exec;
+    }
+
+    /**
+     * Upload a file
+     * 
+     * @param string $path
+     * @param string $file_path
+     * @param array $params
+     * @return mixed
+     */
+    public function upload($path, $file_path = null, $params) {
+        $opts = array(
+            CURLOPT_HTTPHEADER => array( 'Content-Type: multipart/form-data' ),
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => array( 'file' => function_exists( 'curl_file_create' ) ? curl_file_create( $file_path ) : "@{$file_path}" )
+        );
+        
+        $exec = $this->execute($path, $opts, $params);
+        
         return $exec;
     }
 

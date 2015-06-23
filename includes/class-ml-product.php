@@ -89,6 +89,44 @@ final class ML_Product {
 	}
 
 	/**
+	 * Get the ML product fields
+	 *
+	 * @return array fields
+	 */
+	public static function get_fields() {
+		return array(
+			'id',
+			'site_id',
+			'title',
+			'category_id',
+			'price',
+			'currency_id',
+			'sold_quantity',
+			'buying_mode',
+			'listing_type_id',
+			'start_time',
+			'stop_time',
+			'end_time',
+			'condition',
+			'permalink',
+			'thumbnail',
+			'video_id',
+			'status',
+			'warranty',
+			'parent_item_id',
+			'date_created',
+			'last_updated',
+			'shipping_mode',
+			'shipment_local_pickup',
+			'shipment_costs',
+			'shipment_free_methods',
+			'shipment_free_shipping',
+			'seller_custom_field',
+			'attribute_combinations'
+		);
+	}
+
+	/**
 	 *
 	 * Class constructor
 	 *
@@ -196,8 +234,10 @@ final class ML_Product {
 		if ( $this->is_published() ) {
 			throw new ML_Exception( __( 'This product is already posted at ML' , ML()->textdomain ) );
 		}
-
-		$ml_product = ML()->ml_communication->post_resource( '/items' , $this->get_body() );
+		
+		$body = apply_filters( 'post_ml_product' , $this->get_body() , $this->product );
+		
+		$ml_product = ML()->ml_communication->post_resource( '/items' , $body );
 		
 		$this->save_data( $ml_product );
 
@@ -227,7 +267,9 @@ final class ML_Product {
 	 * @return Object      New product data at ML
 	 */
 	public function update() {
-		$ml_product = ML()->ml_communication->put_resource( "/items/{$this->id}" , $this->get_body() );
+		$body = apply_filters( 'update_ml_product' , $this->get_body() , $this->product );
+
+		$ml_product = ML()->ml_communication->put_resource( "/items/{$this->id}" , $body );
 		
 		$this->save_data( $ml_product );
 
@@ -277,8 +319,9 @@ final class ML_Product {
 			throw new ML_Exception( __( 'Invalid listing type' , ML()->textdomain ) );
 		}
 
-		$params = array( 'id' => $new_listing_type );
-		$ml_product = ML()->ml_communication->post_resource( "/items/{$this->id}/listing_type" , $params );
+		$body = apply_filters( 'update_ml_product_listing_type' , array( 'id' => $new_listing_type ) , $this->product );
+
+		$ml_product = ML()->ml_communication->post_resource( "/items/{$this->id}/listing_type" , $body );
 
 		$this->save_data( $ml_product );
 
@@ -305,9 +348,9 @@ final class ML_Product {
 			return null;
 		}
 
-		$params['status'] = $new_status;
+		$body = apply_filters( 'update_ml_product_status' , array( 'status' => $new_status ) , $this->product );
 
-		$ml_product = ML()->ml_communication->put_resource( "/items/{$this->id}" , $params );
+		$ml_product = ML()->ml_communication->put_resource( "/items/{$this->id}" , $body );
 
 		if ( $new_status == 'closed' ) {
 			$this->delete_data();
@@ -331,9 +374,9 @@ final class ML_Product {
 			$new_description = $this->product->get_post_data()->post_content;
 		}
 
-		$params = array( 'text' => $new_description );
+		$body = apply_filters( 'update_ml_product_description' , array( 'text' => $new_description ) , $this->product );
 		
-		return ML()->ml_communication->put_resource( "/items/{$this->id}/description" , $params );
+		return ML()->ml_communication->put_resource( "/items/{$this->id}/description" , $body );
 	}
 
 	/**
@@ -376,6 +419,8 @@ final class ML_Product {
 			$body['quantity'] = $this->product->get_stock_quantity();
 		}
 
+		$body = apply_filters( 'relist_ml_product' , $body , $this->product );
+
 		$ml_product = ML()->ml_communication->post_resource( "/items/{$this->id}/relist" , $body );
 
 		$this->save_data( $ml_product );
@@ -387,46 +432,56 @@ final class ML_Product {
 	 * Save ml product data
 	 */
 	public function save_data( &$ml_product ) {
-		$this->id              = $ml_product->id;
-		$this->site_id         = $ml_product->site_id;
-		$this->title           = $ml_product->title;
-		$this->category_id     = $ml_product->category_id;
-		$this->price           = $ml_product->price;
-		$this->currency_id     = $ml_product->currency_id;
-		$this->sold_quantity   = $ml_product->sold_quantity;
-		$this->buying_mode     = $ml_product->buying_mode;
-		$this->listing_type_id = $ml_product->listing_type_id;
-		$this->start_time      = $ml_product->start_time;
-		$this->stop_time       = $ml_product->stop_time;
-		$this->end_time        = $ml_product->end_time;
-		$this->condition       = $ml_product->condition;
-		$this->permalink       = $ml_product->permalink;
-		$this->thumbnail       = $ml_product->thumbnail;
-		$this->video_id        = $ml_product->video_id;
-		$this->status          = $ml_product->status;
-		$this->warranty        = $ml_product->warranty;
-		$this->parent_item_id  = $ml_product->parent_item_id;
-		$this->date_created    = $ml_product->date_created;
-		$this->last_updated    = $ml_product->last_updated;
-		$this->shipping_mode   = $ml_product->shipping->mode;
+		$excluded_fields = array(
+			'title',
+			'price',
+			'seller_custom_field',
+			'attribute_combinations',
+			'shipment_local_pickup',
+			'shipment_costs',
+			'shipment_free_methods',
+			'shipment_free_shipping'
+		);
 
-		switch ( $ml_product->shipping->mode ) {
-			case 'custom':
-				$this->shipment_local_pickup = ( $ml_product->shipping->local_pick_up == 1 );
-				if ( isset( $ml_product->shipping->free_shipping ) ) {
-					$this->shipment_free_shipping = ( $ml_product->shipping->free_shipping == 1 );
+		foreach ( self::get_fields() as $field ) {
+			if ( in_array( $field , $excluded_fields ) ) {
+				continue;
+			}
+
+			if ( $field == 'shipping_mode' ) {
+				// Save shipping information
+				$this->shipping_mode = $ml_product->shipping->mode;
+
+				switch ( $ml_product->shipping->mode ) {
+					case 'custom':
+						$this->shipment_local_pickup = ( $ml_product->shipping->local_pick_up == 1 );
+						if ( isset( $ml_product->shipping->free_shipping ) ) {
+							$this->shipment_free_shipping = ( $ml_product->shipping->free_shipping == 1 );
+						}
+						break;
+					case 'me1':
+						break;
+					case 'me2':
+						break;
 				}
-				break;
+
+			} else {
+				$this->{ $field } = $ml_product->{ $field };
+			}
 		}
 		
+		// Save variable items
 		if ( ! empty( $ml_product->variations ) ) {
 			foreach ( $ml_product->variations as $variation ) {
-				$child_id = empty( $variation->seller_custom_field ) ? strval( $variation->id ) : intval( $variation->seller_custom_field );
+				$child_id      = empty( $variation->seller_custom_field ) ? strval( $variation->id ) : intval( $variation->seller_custom_field );
 				$child_product = new ML_Product( $child_id  );
 
-				$child_product->id = $variation->id;
-				$child_product->price = $variation->price;
-				$child_product->sold_quantity = $variation->sold_quantity;
+				if ( isset( $child_product->price ) ) {
+					$child_product->price = $variation->price;
+				}
+
+				$child_product->id                  = $variation->id;
+				$child_product->sold_quantity       = $variation->sold_quantity;
 				$child_product->seller_custom_field = $variation->seller_custom_field;
 
 				$attribute_combinations = array();
@@ -444,34 +499,7 @@ final class ML_Product {
 	 */
 	public function delete_data( $ml_fields = null ) {
 		if ( empty( $ml_fields ) ) {
-			$ml_fields = array(
-				'id',
-				'site_id',
-				'title',
-				'category_id',
-				'price',
-				'currency_id',
-				'sold_quantity',
-				'buying_mode',
-				'listing_type_id',
-				'start_time',
-				'stop_time',
-				'end_time',
-				'condition',
-				'permalink',
-				'thumbnail',
-				'video_id',
-				'status',
-				'warranty',
-				'parent_item_id',
-				'date_created',
-				'last_updated',
-				'shipping_mode',
-				'shipment_local_pickup',
-				'shipment_costs',
-				'shipment_free_methods',
-				'shipment_free_shipping'
-			);
+			$ml_fields = self::get_fields();
 		} else if ( is_string( $ml_fields ) ) {
 			$ml_fields = array( $ml_fields );
 		}
@@ -582,7 +610,7 @@ final class ML_Product {
 	 * Set ML JSON structure for shipment fields
 	 */
 	private function set_shipping_fields( &$ml_data ) {
-		if ( ! in_array( $this->shipping_mode , array( 'not_specified' , 'custom' , 'me1' , 'me2' ) ) ) {
+		if ( ! in_array( $this->shipping_mode , array( 'not_specified' , 'custom' ) ) ) {
 			return;
 		}
 
@@ -599,6 +627,10 @@ final class ML_Product {
 				$ml_data['shipping']['methods']       = array();
 				$ml_data['shipping']['costs']         = $this->shipment_costs;
 				break;
+			case 'me1':
+				break;
+			case 'me2':
+				break;
 		}
 	}
 
@@ -611,19 +643,34 @@ final class ML_Product {
      * @return void
      */
 	private function set_pictures_to_body( &$product , &$ml_data , $for_variation = -1 ) {
-		$array_id   = $product->get_gallery_attachment_ids();
-		$array_id[] = $product->get_image_id();
+		$array_id = array();
+		
+		$main_image = $product->get_image_id();
+		
+		if ( ! empty( $main_image ) ) {
+			$array_id[] = $product->get_image_id();
+		}
+
+		$attachments = $product->get_gallery_attachment_ids();
+		
+		if ( empty( $attachments ) ) {
+			$attachments = explode( ',', wc_clean( $_POST['product_image_gallery'] ) );
+		}
+
+		$array_id = array_filter( array_merge( $array_id , $attachments ) );
 
 		foreach ( $array_id as $id ) {
+			$image_meta     = ML()->ml_communication->upload_picture( $id );
 			$img_properties = wp_get_attachment_image_src( $id , 'full' );
+			
+			if ( empty( $image_meta['image_meta']['ml_id'] ) && empty( $img_properties ) ) {
+				continue;
+			}
 
-			if ( ! empty( $img_properties ) ) {
-				// [0] is the image URL
-				if ( $for_variation >= 0 ) {
-					$ml_data['variations'][ $for_variation ][ 'picture_ids' ][] = $img_properties[0];
-				} else {
-					$ml_data['pictures'][] = array( 'source' => $img_properties[0] );
-				}
+			if ( $for_variation >= 0 ) {
+				$ml_data['variations'][ $for_variation ][ 'picture_ids' ][] = isset( $image_meta['image_meta']['ml_id'] ) ? $image_meta['image_meta']['ml_id'] : $img_properties[0];
+			} else {
+				$ml_data['pictures'][] = isset( $image_meta['image_meta']['ml_id'] ) ? array( 'id' => $image_meta['image_meta']['ml_id'] ) : array( 'source' => $img_properties[0] );
 			}
 		}
 	}

@@ -49,7 +49,7 @@ final class ML_Metaboxes extends MGM_Plugin {
 		wp_enqueue_script( 'jqcomments-script' , WooCommerce_MercadoLivre::get_plugin_url( '/assets/js/jquery.comment.js' ) , array( 'jquery' ) , '1.0.0' );
 		wp_enqueue_script( 'ml-comments-script' , WooCommerce_MercadoLivre::get_plugin_url( '/assets/js/ml.comments.js' ) , array( 'jqcomments-script' ) , '2.1.0' );
 		
-		$nonce    = wp_create_nonce( 'ml-comments-action' );
+		$nonce = wp_create_nonce( 'ml-comments-action' );
 		$ajax_url = admin_url( 'admin-ajax.php' );
 		
 		wp_localize_script( 'ml-comments-script' , 'obj' , array(
@@ -128,6 +128,26 @@ final class ML_Metaboxes extends MGM_Plugin {
 	}
 
 	/**
+	 * Link to view product at ML
+	 *
+	 * @filter( hook: "get_sample_permalink_html" )
+	 */
+	public function add_link_to_product( $return , $id , $new_title , $new_slug ) {
+		global $post;
+
+		if ( $post->post_type == 'product' ) {
+			$ml_product = new ML_Product( $post );
+
+			if ( $ml_product->is_published() ) {
+				$text = __( 'View at ML' , ML()->textdomain );
+				$return .= "<span id=\"view-ml-post-btn\"><a href=\"{$ml_product->permalink}\" target=\"_blank\" class=\"button button-small\">{$text}</a></span>";
+			}
+		}
+		
+		return $return;
+	}
+
+	/**
 	 * Save ML product data
 	 *
 	 * @action( hook: "woocommerce_process_product_meta_variable" )
@@ -151,6 +171,8 @@ final class ML_Metaboxes extends MGM_Plugin {
 		if ( $ml_product->can_update_special_fields() ) {
 			// Fields that can only be updated when the product has no sales
 			$ml_product->title        = sanitize_text_field( $_POST['ml_title'] );
+			//$ml_product->buying_mode  = $_POST['ml_buying_mode'];
+			//$ml_product->condition    = $_POST['ml_condition'];
 			$ml_product->warranty     = $_POST['ml_warranty'];
 
 			if ( isset( $_POST['ml_shipping_mode'] ) && ( $_POST['ml_shipping_mode'] == 'custom' ) ) {
@@ -224,19 +246,19 @@ final class ML_Metaboxes extends MGM_Plugin {
 				}
 
 				// Enqueue a message for the user
-				ML()->ml_success_message = sprintf( '%s: <a href="%s" target="_blank">%s</a>' , __( 'The product has been updated successfully on MercadoLivre' , ML()->textdomain ) , $new_ml_product->permalink , $new_ml_product->permalink );
+				ML()->add_notice( sprintf( '%s: <a href="%s" target="_blank">%s</a>' , __( 'The product has been updated successfully on MercadoLivre' , ML()->textdomain ) , $new_ml_product->permalink , $new_ml_product->permalink ) , 'success' );
 			} catch ( ML_Exception $e ) {
-				ML()->ml_error_message = sprintf( '%s: %s' , __( 'The product could not be updated on MercadoLivre' , ML()->textdomain ) , $e->getMessage() );
+				ML()->add_notice( sprintf( '%s: %s' , __( 'The product could not be updated on MercadoLivre' , ML()->textdomain ) , $e->getMessage() ) , 'error' );
 			}
 		} else if ( ! $ml_product->is_published() && ( ( ML()->ml_auto_export == 'yes' ) || ( isset( $_POST['ml_publish'] ) && ( $_POST['ml_publish'] == 'yes' ) ) ) ) {
 			// Post
 			try {
 				// Post the product
-				$new_ml_product = $ml_product->post();;
+				$new_ml_product = $ml_product->post();
 				// Enqueue a message for the user
-				ML()->ml_success_message = sprintf( '%s: <a href="%s" target="_blank">%s</a>' , __( 'The product was successfully published on MercadoLivre' , ML()->textdomain ) , $new_ml_product->permalink , $new_ml_product->permalink );
+				ML()->add_notice( sprintf( '%s: <a href="%s" target="_blank">%s</a>' , __( 'The product was successfully published on MercadoLivre' , ML()->textdomain ) , $new_ml_product->permalink , $new_ml_product->permalink ) , 'success' );
 			} catch ( ML_Exception $e ) {
-				ML()->ml_error_message = sprintf( '%s: %s' , __( 'The product could not be posted on MercadoLivre' , ML()->textdomain ) , $e->getMessage() );
+				ML()->add_notice( sprintf( '%s: %s' , __( 'The product could not be posted on MercadoLivre' , ML()->textdomain ) , $e->getMessage() ) , 'error' );
 			}
 		}
 	}

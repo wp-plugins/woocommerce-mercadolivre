@@ -1,4 +1,15 @@
 <?php 
+/**
+ * Product Tab View
+ *
+ * @author Carlos Cardoso Dias
+ *
+ */
+
+/**
+ * Anti cheating code
+ */
+defined( 'ABSPATH' ) or die( 'A Ag&ecirc;ncia Magma n&atilde;o deixa voc&ecirc; trapacear ;)' );
 
 global $thepostid;
 $ml_product = new ML_Product( intval( $thepostid ) );

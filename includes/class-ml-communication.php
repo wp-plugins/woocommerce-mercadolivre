@@ -172,6 +172,35 @@ final class ML_Communication extends MGM_Singleton {
 	}
 
 	/**
+	 * Upload a picture to ML
+	 *
+	 * @param  int           Picture id
+	 * @param  array         Params for the upload call
+	 * @throws ML_Exception  In case of bad response
+	 * @return array         Image metadata
+	 */
+	public function upload_picture( $picture_id , $params = array() ) {
+		$image_meta   = wp_get_attachment_metadata( $picture_id );
+		$upload_dir   = wp_upload_dir();
+		$picture_path = $upload_dir['basedir'] . '/' . $image_meta['file'];
+		
+		if ( isset( $image_meta['image_meta']['ml_id'] ) || empty( $image_meta ) ) {
+			return $image_meta;
+		}
+
+		try {
+			$ml_picture = $this->execute( 'upload' , '/pictures' , $params , $picture_path );
+			$image_meta['image_meta']['ml_id'] = $ml_picture->id;
+			wp_update_attachment_metadata( $picture_id , $image_meta );
+			ML()->add_notice( sprintf( __( 'Image %s succesfully posted' , ML()->textdomain ) , $image_meta['file'] ) , 'success' );
+		} catch (ML_Exception $e) {
+			ML()->add_notice( sprintf( __( 'An error ocurred while trying to upload the picture %s to MercadoLivre: %s' , ML()->textdomain ) , $picture_path , $e->getMessage() ) , 'error' );
+		}
+
+		return $image_meta;
+	}
+
+	/**
 	 * Get a user object from ML
 	 *
 	 * @param  string user_id
@@ -181,7 +210,7 @@ final class ML_Communication extends MGM_Singleton {
 		try {
 			return $this->get_resource( '/users/' . $user_id );
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
+			ML()->add_notice( __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain ) , 'error' );
 		}
 
 		return null;
@@ -196,7 +225,7 @@ final class ML_Communication extends MGM_Singleton {
 		try {
 			return $this->get_resource( '/sites' );
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
+			ML()->add_notice( __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain ) , 'error' );
 		}
 
 		return null;
@@ -217,7 +246,7 @@ final class ML_Communication extends MGM_Singleton {
 			
 			return $this->get_resource( "/sites/{$site}/listing_types" );
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
+			ML()->add_notice( __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain ) , 'error' );
 		}
 		
 		return null;
@@ -233,7 +262,7 @@ final class ML_Communication extends MGM_Singleton {
 			$currency = $this->get_resource( '/sites/' . ML()->ml_site , array( 'attributes' => 'default_currency_id' ) );
 			return $currency->default_currency_id;
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
+			ML()->add_notice( __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain ) , 'error' );
 		}
 
 		return 'BRL';
@@ -255,7 +284,7 @@ final class ML_Communication extends MGM_Singleton {
 				return array_intersect_key( $all_shipping_modes , array_flip( $disponible_modes ) );
 			}
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
+			ML()->add_notice( __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain ) , 'error' );
 		}
 
 		return array( 'not_specified' => $all_shipping_modes['not_specified'] );
@@ -278,7 +307,7 @@ final class ML_Communication extends MGM_Singleton {
 			}
 
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
+			ML()->add_notice( __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain ) , 'error' );
 		}
 		
 		return null;
@@ -294,7 +323,6 @@ final class ML_Communication extends MGM_Singleton {
 			$user = $this->get_user();
 			return $this->get_resource( "users/{$user->id}/brands" );
 		} catch (ML_Exception $e) {
-			ML()->ml_error_message = __( 'An error ocurred while trying to communicate with MercadoLivre. Try to reload the page.' , ML()->textdomain );
 		}
 
 		return null;

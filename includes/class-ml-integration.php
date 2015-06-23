@@ -32,6 +32,7 @@ final class WC_Mercadolivre_Integration extends WC_Integration {
 		$this->ml_auto_update     = $this->get_option( 'ml_auto_update' );
 
 		add_action( 'woocommerce_update_options_integration_' . $this->id , array( $this , 'process_admin_options' ) );
+		add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id , array( $this , 'fields_to_save' ) );
 	}
 
 	public function init_form_fields() {
@@ -125,32 +126,54 @@ final class WC_Mercadolivre_Integration extends WC_Integration {
 		}
 
 		ob_start();
-		include( 'views/html-button.php' );
+		
+		?><tr valign="top">
+			<th scope="row" class="titledesc">
+				<label for="<?php echo esc_attr( $field ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+				<?php echo $this->get_tooltip_html( $data ); ?>
+			</th>
+			<td class="forminp">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
+					<a href="<?php echo esc_attr( $data['href'] ); ?>" class="<?php echo esc_attr( $data['class'] ); ?>" name="<?php echo esc_attr( $field ); ?>" id="<?php echo esc_attr( $field ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>" <?php echo $this->get_custom_attribute_html( $data ); ?>><?php echo wp_kses_post( $data['title'] ); ?></a>
+					<?php echo $this->get_description_html( $data ); ?>
+				</fieldset>
+			</td>
+		</tr><?php
+
 		return ob_get_clean();
 	}
 
 	/**
-	 * - Saves the options to the DB
+	 * Fields to save in the database
 	 */
-	public function validate_settings_fields( $form_fields = array() ) {
-		parent::validate_settings_fields( $form_fields );
+	public function fields_to_save( $sanitized_fields ) {
+		$old_options = get_option( 'woocommerce_ag-magma-ml-integration_settings' , array() );
 
-		if ( empty( $_POST[ $this->plugin_id . $this->id . '_ml_app_id' ] ) && empty( $_POST[ $this->plugin_id . $this->id . '_ml_secret_key' ] ) ) {
-			$fields = array(
-				'ml_app_id',
-				'ml_secret_key',
-				'ml_access_token',
-				'ml_expires_in',
-				'ml_refresh_token',
-				'ml_nickname',
-				'ml_sites',
-				'ml_official_stores'
-			);
+		$fields = array(
+			'ml_app_id'          => '',
+			'ml_secret_key'      => '',
+			'ml_access_token'    => '',
+			'ml_expires_in'      => '',
+			'ml_refresh_token'   => '',
+			'ml_nickname'        => '',
+			'ml_sites'           => array(),
+			'ml_official_stores' => array(),
+			'ml_site'            => 'MLB',
+			'ml_auto_export'     => 'yes',
+			'ml_auto_update'     => 'yes',
+			'ml_messages'        => array()
+		);
 
-			foreach ( $fields as $field ) {
-				$this->sanitized_fields[ $field ] = ML()->{ $field };
+		$fields_to_save = wp_parse_args( $sanitized_fields , wp_parse_args( $old_options , $fields ) );
+
+		foreach ( $fields_to_save as $key => $value ) {
+			if ( empty( $fields_to_save[ $key ] ) ) {
+				unset( $fields_to_save[ $key ] );
 			}
 		}
+
+		return $fields_to_save;
 	}
 }
 

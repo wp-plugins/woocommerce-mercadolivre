@@ -1,5 +1,17 @@
 <?php
 /**
+ * Variation Line View
+ *
+ * @author Carlos Cardoso Dias
+ *
+ */
+
+/**
+ * Anti cheating code
+ */
+defined( 'ABSPATH' ) or die( 'A Ag&ecirc;ncia Magma n&atilde;o deixa voc&ecirc; trapacear ;)' );
+
+/**
  * receive $saved_variation, $variations, $ml_product
  */
 ?>

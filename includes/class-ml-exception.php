@@ -16,33 +16,15 @@ if ( ! class_exists( 'ML_Exception' ) ) :
 final class ML_Exception extends Exception {
 
 	public function __construct( $message , $code = 0 ) {
-		if ( ! is_string( $message ) ) {
-			$msg = null;
-
-			if ( isset( $message->cause[0]->code ) ) {
-				$msg = $this->get_translated_message( $message->cause[0]->code , $message );
-			}
-			
-			if ( empty( $msg ) && isset( $message->message ) && is_string( $message->message ) ) {
-				$msg = $message->error;
-			}
-
-			if ( isset( $message->status ) ) {
-				$code = $message->status;
-			}
-			
-			if ( ! empty( $msg ) ) {
-				$message = $msg;
-			} else {
-				$message = print_r( $message , true );
-			}
-		}
-
-		parent::__construct( $message , $code );
+		parent::__construct( is_object( $message ) ? $this->get_translated_message( $message ) : $message , $code );
 	}
 
-	private function get_translated_message( $msg_code , $obj ) {
-		switch ( $msg_code ) {
+	private function get_translated_message( $obj ) {
+		if ( empty( $obj->cause[0]->code ) ) {
+			return print_r( $obj , true );
+		}
+
+		switch ( $obj->cause[0]->code ) {
 			case 'item.start_time.invalid'                           : return __( 'Invalid start time.' , ML()->textdomain );
 			case 'item.category_id.invalid'                          : return __( 'Invalid category.' , ML()->textdomain );
 			case 'item.buying_mode.invalid'                          : return __( 'Invalid buying mode.' , ML()->textdomain );
@@ -65,9 +47,10 @@ final class ML_Exception extends Exception {
 			case 'body.invalid'                                      : return __( 'Invalid item body.' , ML()->textdomain );
 			case 'item.status.invalid'                               : return __( 'Item in status closed is not possible to change to status closed.' , ML()->textdomain );
 			case 'item.variations.attribute_combinations.duplicated' : return __( 'Variation attribute is duplicated. Allowed unique atrributes combinations.' , ML()->textdomain );
+			case 'file.not_found'                                    : return __( 'There is no file in request.' , ML()->textdomain );
 		}
 
-		return '';
+		return print_r( $obj , true );
 	}
 }
 
