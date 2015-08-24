@@ -1,10 +1,10 @@
-=== WooCommerce MercadoLivre ===
+﻿=== WooCommerce MercadoLivre ===
 Contributors: agenciamagma, Carlos Cardoso Dias
 Tags: mercadolivre, mercadopago, woocommerce, integration, mercado livre, woocommerce mercadolivre, woocommerce mercado livre, integração, mercado, livre, mercadoenvios, mercado envios, feedback, comentários, ml
 Donate link: http://magmastore.com.br/
 Requires at least: 4.2.0
 Tested up to: 4.2.2
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,9 +101,16 @@ IMPORTANTE 2: A categoria do produto no MercadoLivre deverá ser final. Categori
 = 0.1.0 =
 * Icons update and bug fixes.
 
+= 0.1.1 =
+* Fixed decimal separator bug.
+* Fixed publication in draft bug.
+
 == Upgrade Notice ==
 = 0.0.2 =
 First version.
 
 = 0.1.0 =
 Icons update and bug fixes.
+
+= 0.1.1 =
+Some important bug fixes.

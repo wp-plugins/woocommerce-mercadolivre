@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce MercadoLivre
  * Plugin URI: http://agenciamagma.com.br
  * Description: WooCommerce integration with MercadoLivre.
- * Version: 0.1.0
+ * Version: 0.1.1
  * Author: agenciamagma, Carlos Cardoso Dias
  * Author URI: http://agenciamagma.com.br
  * Text Domain: woocommerce-mercadolivre

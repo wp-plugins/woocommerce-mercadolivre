@@ -201,7 +201,7 @@ final class ML_Metaboxes extends MGM_Plugin {
 		}
 
 		if ( ! $ml_product->is_published() || ! $ml_product->is_variable() ) {
-			$ml_product->price = sanitize_text_field( $_POST['ml_price'] );
+			$ml_product->price = str_replace( wc_get_price_decimal_separator() , '.' , sanitize_text_field( $_POST['ml_price'] ) );
 		}
 
 		if ( $ml_product->is_variable() ) {
@@ -227,10 +227,15 @@ final class ML_Metaboxes extends MGM_Plugin {
 					$child_product->attribute_combinations = $attribute_combinations;
 				}
 				
-				$child_product->price = sanitize_text_field( $_POST['ml_variations']['price'][ $position ] );
+				$child_product->price = str_replace( wc_get_price_decimal_separator() , '.' , sanitize_text_field( $_POST['ml_variations']['price'][ $position ] ) );
 			}
 		}
 
+		// Check if is being published
+		if ( empty( $_POST['publish'] ) ) {
+			return;
+		}
+		
 		if ( $ml_product->is_published() && ( ( ML()->ml_auto_update == 'yes' ) || ( isset( $_POST['ml_publish'] ) && ( $_POST['ml_publish'] == 'yes' ) ) ) ) {
 			// Verify aditional changes and update
 			try {
