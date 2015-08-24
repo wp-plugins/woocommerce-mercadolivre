@@ -1,0 +1,23 @@
+.ml_relist:after {
+	content: url("../img/icon-relist1.png");
+	text-align: center;
+}
+.ml_delete:after {
+	content: url("../img/icon-delete1.png");
+}
+.ml_view:after {
+	content: url("../img/icon-view1.png");
+	text-align: center;
+}
+.ml_pause:after {
+	content: url("../img/icon-pause1.png");
+}
+.ml_activate:after {
+	content: url("../img/icon-activate1.png");
+}
+.ml_button {
+	padding: 5px !important;
+	margin: 2px !important;
+	text-align: center;
+	float: left;
+}
